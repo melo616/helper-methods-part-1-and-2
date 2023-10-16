@@ -51,4 +51,12 @@ class DirectorsController < ApplicationController
     end
   end
 
+  def destroy
+    director = Director.find(params.fetch(:id))
+
+    director.destroy
+
+    redirect_to(directors_url, { :notice => "Director deleted successfully." })
+  end
+
 end
