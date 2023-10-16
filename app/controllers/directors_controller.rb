@@ -45,9 +45,9 @@ class DirectorsController < ApplicationController
 
     if director.valid?
       director.save
-      redirect_to("/directors", { :notice => "Director updated successfully."})
+      redirect_to(director_url(director.id), { :notice => "Director updated successfully."})
     else
-      redirect_to("/directors", { :alert => "Director failed to update successfully." })
+      redirect_to(director_url(director.id), { :alert => "Director failed to update successfully." })
     end
   end
 
