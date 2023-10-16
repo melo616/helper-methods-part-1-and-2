@@ -32,4 +32,23 @@ class DirectorsController < ApplicationController
     end
   end
 
+  def edit
+    @director = Director.find(params.fetch(:id))
+  end
+
+  def update
+    director = Director.find(params.fetch(:id))
+    director_attributes = params.require(:director).permit(:name, :dob, :bio)
+    director.name = director_attributes["name"]
+    director.dob = director_attributes["dob"]
+    director.bio = director_attributes["bio"]
+
+    if director.valid?
+      director.save
+      redirect_to("/directors", { :notice => "Director updated successfully."})
+    else
+      redirect_to("/directors", { :alert => "Director failed to update successfully." })
+    end
+  end
+
 end
