@@ -16,6 +16,20 @@ class DirectorsController < ApplicationController
     end
   end
 
+  def show
+    @director = Director.find(params.fetch(:id))
+  end
 
-  
+  def create
+    director_attributes = params.require(:director).permit(:name, :dob, :bio)
+    @director = Director.new(director_attributes)
+
+    if @director.valid?
+      @director.save
+      redirect_to(directors_url, { :notice => "Director created successfully." })
+    else
+      render "directors/new"
+    end
+  end
+
 end
